@@ -1,18 +1,14 @@
 package com.serus.calculator;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.annotation.SuppressLint;
-import android.graphics.Color;
-import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -91,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void performOperation(View view) {
-        Button clicked = (Button) view;
+        CircularButton clicked = (CircularButton) view;
+        clicked.onClick(view);
         //logicModule.getOperation(clicked.getId());
     }
 }
