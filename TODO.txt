@@ -1,0 +1,5 @@
+- make proper action button animations (+, -, etc.)
+- implement logic 
+- debug (div by 0, overflow, etc.)
+- implement opening new secret activity
+- finally start new project of secret chat

@@ -1,13 +1,21 @@
 package com.serus.calculator;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 
 public class CircularButton extends androidx.appcompat.widget.AppCompatButton implements View.OnClickListener {
 
-    private CircularButton selected;
+    private static CircularButton selected;
+    private TransitionDrawable transition = new TransitionDrawable( new Drawable[] {
+            getResources().getDrawable(R.drawable.orange_button),
+            getResources().getDrawable(R.drawable.white_button)
+    });
 
     public CircularButton(Context context) {
         super(context);
@@ -32,14 +40,29 @@ public class CircularButton extends androidx.appcompat.widget.AppCompatButton im
     @Override
     public void onClick(View view) {
         CircularButton clicked = (CircularButton) view;
-        if (clicked.getId() != R.id.btnEquals) {
-            selected = clicked;
+        if(clicked.getId()!=R.id.btnEquals) {
+            clicked.setBackground(transition);
+            if(selected!=null && selected!=clicked) {
+                setDeselected(selected);
+                setSelected(clicked);
+            }
+            selected=clicked;
+        } else {
+            if(selected!=null) setDeselected(selected);
         }
+
     }
 
 
-    private void setProperties() {
-        Drawable background = this.getBackground();
-        int textColor = this.getTextColors().getDefaultColor();
+    private void setSelected(CircularButton clicked) {
+        clicked.setBackground(transition);
+        transition.startTransition(100);
+        clicked.setTextColor(getResources().getColor(R.color.colorAccent));
+    }
+
+    private void setDeselected(CircularButton clicked) {
+        clicked.setBackground(transition);
+        transition.resetTransition();
+        clicked.setTextColor(getResources().getColor(R.color.colorWhite));
     }
 }
